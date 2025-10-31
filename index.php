@@ -8,14 +8,14 @@ include("../includes/db.php");
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ShopLite - Home</title>
 
   <!-- Bootstrap CSS CDN -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
   <!-- Optional: Custom CSS -->
-  <link rel="stylesheet" href="../assets/css/style.css" />
+  <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
 
@@ -46,26 +46,44 @@ include("../includes/db.php");
     </div>
   </header>
 
-  <!-- Featured Products (Static Example) -->
-  <section class="py-5 bg-white">
-    <div class="container">
-      <h2 class="text-center mb-4">Featured Products</h2>
-      <div class="row g-4">
-        <!-- Product Card -->
-        <div class="col-md-4">
-          <div class="card h-100">
-            <img src="../assets/images/product1.jpg" class="card-img-top" alt="Product 1">
-            <div class="card-body">
-              <h5 class="card-title">Product Name</h5>
-              <p class="card-text">₦10,000</p>
-              <a href="product-details.php?id=1" class="btn btn-outline-primary">View</a>
+<!-- Featured Products (Dynamic from Database) -->
+<section class="py-5 bg-white">
+  <div class="container">
+    <h2 class="text-center mb-4">Featured Products</h2>
+    <div class="row g-4">
+      <?php
+      include("../includes/db.php");
+
+      $sql = "SELECT * FROM products ORDER BY id DESC LIMIT 6";
+      $result = $conn->query($sql);
+
+      if ($result && $result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+          $imagePath = "../uploads/" . htmlspecialchars($row['image']);
+          echo "
+          <div class='col-md-4'>
+            <div class='card h-100 shadow-sm border-0'>
+              <img src='$imagePath' class='card-img-top' alt='" . htmlspecialchars($row['name']) . "'>
+              <div class='card-body text-center'>
+                <h5 class='card-title'>" . htmlspecialchars($row['name']) . "</h5>
+                <p class='text-success fw-bold'>₦" . number_format($row['price'], 2) . "</p>
+                <a href='product-details.php?id=" . $row['id'] . "' class='btn btn-outline-primary'>View</a>
+              </div>
             </div>
           </div>
-        </div>
-        <!-- Repeat cards as needed -->
-      </div>
+          ";
+        }
+      } else {
+        echo "<p class='text-center text-muted'>No products available right now.</p>";
+      }
+
+      $conn->close();
+      ?>
     </div>
-  </section>
+  </div>
+</section>
+
+
 
   <!-- Footer -->
   <footer class="bg-dark text-white text-center py-3">

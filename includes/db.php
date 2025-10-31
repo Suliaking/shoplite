@@ -3,7 +3,7 @@
 $servername = "localhost";
 $username = "sulaimon";
 $password = "123456";
-$dbname = "ecommerce_db";
+$dbname = "shoplite_db";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
