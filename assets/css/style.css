@@ -1,0 +1,128 @@
+/* ShopLite Theme Colors */
+:root {
+    --primary-brown: #4B2E1E;
+    --light-beige: #F5EFE7;
+    --hover-brown: #6A3E2F;
+    --card-bg: #FFF9F4;
+}
+
+/* Base styles */
+body {
+    background-color: var(--light-beige);
+    font-family: 'Playfair Display', serif;
+    color: var(--primary-brown);
+    margin: 0;
+    padding: 0;
+}
+
+/* Navbar */
+.navbar {
+    background-color: var(--primary-brown) !important;
+}
+
+.navbar-brand span {
+    color: var(--light-beige);
+}
+
+.nav-link {
+    color: var(--light-beige) !important;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.nav-link:hover {
+    color: #D2BBA0 !important;
+}
+
+/* Hero section */
+.hero-section {
+    background-color: var(--light-beige);
+    color: var(--primary-brown);
+}
+
+/* Buttons */
+.btn-primary {
+    background-color: var(--primary-brown);
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: var(--hover-brown);
+}
+
+/* Cards */
+.card {
+    border: none;
+    background-color: var(--card-bg);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 10px rgba(75, 46, 30, 0.2);
+}
+
+/* Footer */
+.footer {
+    background-color: var(--primary-brown);
+    color: var(--light-beige);
+}
+
+/* ----------------------------- */
+/* PRODUCT DETAILS PAGE STYLING */
+/* ----------------------------- */
+
+.product-details {
+    color: var(--primary-brown);
+}
+
+.product-image {
+    max-height: 450px;
+    object-fit: cover;
+    border: 2px solid var(--primary-brown);
+    background-color: var(--card-bg);
+}
+
+.product-details h2 {
+    color: var(--primary-brown);
+}
+
+.product-details p {
+    font-size: 1.1rem;
+}
+
+.btn-primary {
+    background-color: var(--primary-brown);
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: var(--hover-brown);
+    transform: scale(1.03);
+    transition: 0.2s ease;
+}
+
+/* Make it responsive */
+@media (max-width: 768px) {
+    .product-image {
+        width: 100%;
+    }
+}
+
+/* ----------------------------- */
+/* BACK BUTTON STYLE */
+/* ----------------------------- */
+
+.btn-outline-brown {
+    color: var(--primary-brown);
+    border: 2px solid var(--primary-brown);
+    font-weight: 500;
+    background-color: transparent;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-brown:hover {
+    background-color: var(--primary-brown);
+    color: var(--light-beige);
+    transform: scale(1.05);
+}
