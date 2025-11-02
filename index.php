@@ -4,9 +4,11 @@ include("includes/db.php");
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/images/Logo.png">
   <title>ShopLite - Home</title>
 
   <!-- Bootstrap CSS -->
@@ -35,9 +37,9 @@ include("includes/db.php");
       <div class="collapse navbar-collapse" id="navMenu">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
-          <li class="nav-item"><a class="nav-link" href="products.php">Products</a></li>
-          <li class="nav-item"><a class="nav-link" href="cart.php">Cart</a></li>
-          <li class="nav-item"><a class="nav-link" href="login.php">Login</a></li>
+          <li class="nav-item"><a class="nav-link" href="pages/products.php">Products</a></li>
+          <li class="nav-item"><a class="nav-link" href="pages/cart.php">Cart</a></li>
+          <li class="nav-item"><a class="nav-link" href="pages/login.php">Login</a></li>
         </ul>
       </div>
     </div>
@@ -65,25 +67,28 @@ include("includes/db.php");
         if ($result && $result->num_rows > 0) {
           while ($row = $result->fetch_assoc()) {
             $imagePath = "uploads/" . htmlspecialchars($row['image']);
-            echo "
-              <div class='col-md-4'>
-                <div class='card h-100 shadow-sm'>
-                  <img src='$imagePath' class='card-img-top' alt='" . htmlspecialchars($row['name']) . "'>
-                  <div class='card-body text-center'>
-                    <h5 class='card-title'>" . htmlspecialchars($row['name']) . "</h5>
-                    <p class='text-success fw-bold'>₦" . number_format($row['price'], 2) . "</p>
-                    <a href='pages/product-details.php?id=" . $row['id'] . "' class='btn btn-primary'>View</a>
+            ?>
+            <div class="col-md-4 d-flex">
+              <div class="card product-card shadow-sm flex-fill">
+                <div class="card-img-container">
+                  <img src="<?= $imagePath ?>" class="card-img-top" alt="<?= htmlspecialchars($row['name']) ?>">
+                </div>
+                <div class="card-body text-center d-flex flex-column justify-content-between">
+                  <div>
+                    <h5 class="card-title"><?= htmlspecialchars($row['name']) ?></h5>
+                    <p class="text-success fw-bold">₦<?= number_format($row['price'], 2) ?></p>
                   </div>
+                  <a href="pages/product-details.php?id=<?= $row['id'] ?>" class="btn btn-primary mt-2">View</a>
                 </div>
               </div>
-            ";
+            </div>
+            <?php
           }
         } else {
           echo "<p class='text-center text-muted'>No products available right now.</p>";
         }
-
-        $conn->close();
         ?>
+
       </div>
     </div>
   </section>
@@ -96,4 +101,5 @@ include("includes/db.php");
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
