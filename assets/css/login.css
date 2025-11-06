@@ -1,0 +1,62 @@
+    /* Specific styles for login page */
+    .auth-section {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #fdfaf6;
+    }
+
+    .auth-box {
+        background-color: #fff;
+        border-radius: 12px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        max-width: 420px;
+        width: 100%;
+        padding: 2rem;
+        transition: all 0.4s ease-in-out;
+    }
+
+    .auth-box h2 {
+        color: #4b2e1a;
+        font-weight: bold;
+        margin-bottom: 1.5rem;
+    }
+
+    .auth-box .form-control {
+        border-radius: 8px;
+    }
+
+    .auth-box .btn-primary {
+        background-color: #4b2e1a;
+        border-color: #4b2e1a;
+        border-radius: 8px;
+    }
+
+    .auth-box .btn-primary:hover {
+        background-color: #6b4226;
+        border-color: #6b4226;
+    }
+
+    .toggle-link {
+        color: #4b2e1a;
+        font-weight: 500;
+        cursor: pointer;
+        text-decoration: underline;
+    }
+
+    .auth-section {
+        background: #f8f9fa;
+    }
+
+    .auth-box h2 {
+        font-family: 'Playfair Display', serif;
+    }
+
+    .navbar-brand img {
+        transition: transform 0.3s ease;
+    }
+
+    .navbar-brand img:hover {
+        transform: scale(1.05);
+    }

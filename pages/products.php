@@ -14,7 +14,7 @@ include("../includes/db.php");
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
   <!-- Google Fonts -->
-+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet">
 
   <!-- Custom CSS -->
   <link rel="stylesheet" href="../assets/css/style.css">
