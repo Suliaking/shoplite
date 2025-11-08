@@ -1,0 +1,25 @@
+body {
+    background-color: #fafafa;
+    font-family: 'Playfair Display', serif;
+}
+
+.product-image {
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+}
+
+.product-image:hover {
+    transform: scale(1.05);
+}
+
+.btn-custom {
+    background-color: #5a3825;
+    color: #fff;
+    border-radius: 8px;
+    transition: background 0.3s ease;
+}
+
+.btn-custom:hover {
+    background-color: #412918;
+    color: #fff;
+}
