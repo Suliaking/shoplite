@@ -41,10 +41,20 @@ $name = $_SESSION['name'];
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navMenu">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link active" href="#">Dashboard</a></li>
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link active" href="dashboard.php">Dashboard</a></li>
                     <li class="nav-item"><a class="nav-link" href="profile.php">Profile</a></li>
                     <li class="nav-item"><a class="nav-link" href="orders.php">Orders</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link position-relative" href="cart.php">
+                            🛒 Cart
+                            <!-- Optional badge to show item count -->
+                            <span
+                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                <?php echo isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0; ?>
+                            </span>
+                        </a>
+                    </li>
                     <li class="nav-item"><a class="nav-link text-danger" href="../process/logout.php">Logout</a></li>
                 </ul>
             </div>
