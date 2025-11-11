@@ -7,7 +7,7 @@ if (isset($_SESSION['name'])) {
     $name = $conn->real_escape_string($_SESSION['name']); // Prevent SQL injection
     $uploadDir = "profile_image_upload/";
     $extensions = ['jpg', 'jpeg', 'png', 'jfif'];
-    $profilePic = "default.png"; // Default profile picture
+    $profilePic = "default.jpg"; // Default profile picture
 
     // Check which image file exists for the user
 

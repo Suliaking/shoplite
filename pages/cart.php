@@ -9,6 +9,7 @@ if (!isset($_SESSION['cart'])) {
 
 // Add to cart functionality
 if (isset($_POST['add_to_cart'])) {
+    
     $product_id = $_POST['product_id'];
     $product_name = $_POST['product_name'];
     $product_price = $_POST['product_price'];

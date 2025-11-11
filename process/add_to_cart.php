@@ -8,12 +8,21 @@ if (!isset($_SESSION['cart'])) {
 
 // Check if form data was sent
 if (isset($_POST['add_to_cart'])) {
+    
+    // ✅ Check if user is logged in
+    if (!isset($_SESSION['name'])) {
+        // Redirect to login if not logged in
+        header("Location: ../pages/login.php");
+        exit();
+    }
+
+    // Get product data from form
     $product_id = $_POST['product_id'];
     $product_name = $_POST['product_name'];
-    $product_price = (float)$_POST['product_price'];
+    $product_price = (float) $_POST['product_price'];
     $product_image = $_POST['product_image'];
 
-    // Check if already in cart
+    // Check if product already in cart
     if (isset($_SESSION['cart'][$product_id])) {
         $_SESSION['cart'][$product_id]['quantity']++;
     } else {
@@ -25,11 +34,12 @@ if (isset($_POST['add_to_cart'])) {
         ];
     }
 
-    // Redirect to cart
+    // Redirect to cart page
     header("Location: ../pages/cart.php");
     exit();
+    
 } else {
-    // Invalid request
+    // Invalid request, redirect back to products
     header("Location: ../pages/products.php");
     exit();
 }

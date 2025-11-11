@@ -43,7 +43,8 @@ $name = $_SESSION['name'];
             <div class="collapse navbar-collapse" id="navMenu">
                 <ul class="navbar-nav ms-auto align-items-center">
                     <li class="nav-item"><a class="nav-link active" href="dashboard.php">Dashboard</a></li>
-                    <li class="nav-item"><a class="nav-link" href="profile.php">Profile</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../pages/profile.php">Profile</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../pages/products.php">Products</a></li>
                     <li class="nav-item"><a class="nav-link" href="orders.php">Orders</a></li>
                     <li class="nav-item">
                         <a class="nav-link position-relative" href="cart.php">

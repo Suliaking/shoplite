@@ -48,6 +48,7 @@ $isLoggedIn = isset($_SESSION['name']);
             <li class="nav-item"><a class="nav-link" href="../index.php">Home</a></li>
           <?php endif; ?>
 
+          <li class="nav-item"><a class="nav-link" href="dashboard.php">Dashboard</a></li>
           <li class="nav-item"><a class="nav-link active" href="#">Products</a></li>
           <li class="nav-item"><a class="nav-link" href="../pages/cart.php">Cart</a></li>
 

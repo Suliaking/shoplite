@@ -23,15 +23,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         die("Email already registered. Please log in instead.");
     }
 
-    // Insert user details into the database 
-    $insertQuery = $conn->prepare("INSERT INTO users (name, email, password, created_at) VALUES (?, ?, ?, NOW())");
-    $insertQuery->bind_param("sss", $name, $email, $password);
+    // 🔹 Set default profile picture
+    $default_pic = 'default.png';
+
+    // Insert user details into the database, including the default picture
+    $insertQuery = $conn->prepare("
+        INSERT INTO users (name, email, password, profile_pic, created_at)
+        VALUES (?, ?, ?, ?, NOW())
+    ");
+    $insertQuery->bind_param("ssss", $name, $email, $password, $default_pic);
 
     if ($insertQuery->execute()) {
         // Set session and redirect to dashboard
         $_SESSION['name'] = $name;
         header("Location: ../pages/dashboard.php");
-        // Change path to your dashboard or welcome page
         exit();
     } else {
         echo "Error creating account. Please try again.";

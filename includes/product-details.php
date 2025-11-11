@@ -46,7 +46,7 @@ $product = $result->fetch_assoc();
         <p class="text-muted"><?= nl2br(htmlspecialchars($product['description'])); ?></p>
 
         <!-- Add to Cart Form -->
-        <form method="POST" action="../pages/cart.php">
+        <form method="POST" action="../process/add_to_cart.php">
           <input type="hidden" name="product_id" value="<?= $product['id']; ?>">
           <input type="hidden" name="product_name" value="<?= htmlspecialchars($product['name']); ?>">
           <input type="hidden" name="product_price" value="<?= $product['price']; ?>">

@@ -51,7 +51,7 @@ include("includes/db.php");
       <img src="assets/images/logo.png" alt="ShopLite Logo" height="100" class="mb-3">
       <h1 class="display-4 fw-bold">Welcome to ShopLite</h1>
       <p class="lead">Your one-stop shop for the best online deals.</p>
-      <a href="products.php" class="btn btn-primary btn-lg mt-3">Shop Now</a>
+      <a href="pages/products.php" class="btn btn-primary btn-lg mt-3">Shop Now</a>
     </div>
   </header>
 
@@ -78,7 +78,7 @@ include("includes/db.php");
                     <h5 class="card-title"><?= htmlspecialchars($row['name']) ?></h5>
                     <p class="text-success fw-bold">₦<?= number_format($row['price'], 2) ?></p>
                   </div>
-                  <a href="pages/product-details.php?id=<?= $row['id'] ?>" class="btn btn-primary mt-2">View</a>
+                  <a href="includes/product-details.php?id=<?= $row['id'] ?>" class="btn btn-primary mt-2">View</a>
                 </div>
               </div>
             </div>
