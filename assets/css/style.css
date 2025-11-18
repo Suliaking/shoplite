@@ -168,64 +168,63 @@ body {
     font-family: 'Playfair Display', serif;
     background-color: #fdfaf6;
     color: #4b2e1a;
-  }
-  
-  .navbar {
+}
+
+.navbar {
     background-color: #4b2e1a;
-  }
-  
-  .navbar .nav-link,
-  .navbar-brand span {
+}
+
+.navbar .nav-link,
+.navbar-brand span {
     color: #f8f5f2 !important;
-  }
-  
-  .navbar .nav-link.active {
+}
+
+.navbar .nav-link.active {
     font-weight: bold;
     border-bottom: 2px solid #c4a484;
-  }
-  
-  /* --- Product Cards --- */
-  .product-card {
+}
+
+/* --- Product Cards --- */
+.product-card {
     height: 100%;
     display: flex;
     flex-direction: column;
     border: none;
     transition: transform 0.2s ease-in-out, box-shadow 0.2s;
-  }
-  
-  .product-card:hover {
+}
+
+.product-card:hover {
     transform: translateY(-6px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  }
-  
-  .card-img-container {
+}
+
+.card-img-container {
     height: 250px;
     overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: #f8f9fa;
-  }
-  
-  .card-img-container img {
+}
+
+.card-img-container img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-  }
-  
-  .btn-primary {
+}
+
+.btn-primary {
     background-color: #4b2e1a;
     border-color: #4b2e1a;
-  }
-  
-  .btn-primary:hover {
+}
+
+.btn-primary:hover {
     background-color: #6b4226;
     border-color: #6b4226;
-  }
-  
-  /* --- Footer --- */
-  footer {
+}
+
+/* --- Footer --- */
+footer {
     background-color: #4b2e1a;
     color: #f8f5f2;
-  }
-  
+}

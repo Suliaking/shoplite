@@ -1,7 +1,42 @@
+/* ===========================
+   GLOBAL
+=========================== */
 body {
-    background-color: #f5f6f8;
+    background: #f8f9fa;
 }
 
+/* ===========================
+   NAVBAR
+=========================== */
+.navbar {
+    background-color: #4b2c20 !important; /* dashboard brown */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.navbar-brand {
+    color: #fff !important;
+    font-weight: bold;
+}
+
+.navbar-brand img {
+    border-radius: 5px;
+}
+
+.navbar-nav .nav-link,
+.nav-link {
+    color: #fff !important;
+    margin-right: 15px;
+    transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover,
+.nav-link:hover {
+    color: #ffc107 !important; /* gold hover */
+}
+
+/* ===========================
+   PROFILE CARD
+=========================== */
 .profile-card {
     background: #fff;
     border-radius: 15px;
@@ -11,20 +46,29 @@ body {
     margin: 2rem auto;
 }
 
+/* ===========================
+   PROFILE HEADER
+=========================== */
 .profile-header {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
     text-align: center;
-    margin-bottom: 1.5rem;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
 }
 
 .profile-header img {
-    width: 100px;
-    height: 100px;
+    width: 110px;
+    height: 110px;
     object-fit: cover;
     border-radius: 50%;
-    border: 3px solid #007bff;
+    border: 4px solid #ddd;
     margin-bottom: 10px;
 }
 
+/* ===========================
+   BUTTONS
+=========================== */
 .btn-primary {
     background-color: #007bff;
     border: none;
@@ -43,40 +87,89 @@ body {
     background-color: #565e64;
 }
 
-.navbar {
-    background-color: #000;
+/* ===========================
+   TABS
+=========================== */
+.profile-tabs .nav-link.active {
+    background: #4b2c20;
+    color: white !important;
+    border-radius: 8px;
 }
 
-.navbar-brand {
-    color: #fff !important;
-    font-weight: bold;
+/* ===========================
+   FORM CARD
+=========================== */
+.form-card {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
 }
 
-.navbar-nav .nav-link {
-    color: #fff !important;
-    margin-right: 15px;
+.label-title {
+    font-weight: 600;
+    margin-bottom: 5px;
 }
 
-.navbar-nav .nav-link:hover {
-    color: #ffc107 !important;
+
+/* Smooth Mode Transition */
+body, .form-card, .profile-header, .nav-tabs .nav-link {
+    transition: background 0.3s ease, color 0.3s ease;
 }
 
-.navbar {
-    background-color: #4b2c20 !important;
-    /* matches dashboard brown */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+/* Dark Mode Main Styles */
+.dark-mode {
+    background-color: #121212 !important;
+    color: #e4e4e4 !important;
 }
 
-.nav-link {
-    color: #fff !important;
-    transition: color 0.3s ease;
+/* Navbar */
+.dark-mode nav.navbar {
+    background-color: #1d1d1d !important;
 }
 
-.nav-link:hover {
-    color: #ffc107 !important;
-    /* gold hover effect */
+/* Cards / Containers */
+.dark-mode .form-card,
+.dark-mode .profile-header {
+    background-color: #1f1f1f !important;
+    color: #e4e4e4 !important;
+    box-shadow: 0 3px 10px rgba(255, 255, 255, 0.05);
 }
 
-.navbar-brand img {
-    border-radius: 5px;
+/* Tabs */
+.dark-mode .nav-tabs .nav-link {
+    background: #1f1f1f;
+    color: #ccc !important;
+    border: 1px solid #333 !important;
+}
+
+.dark-mode .nav-tabs .nav-link.active {
+    background: #4b2c20 !important;
+    color: white !important;
+}
+
+/* Inputs */
+.dark-mode input,
+.dark-mode textarea,
+.dark-mode select {
+    background-color: #222 !important;
+    color: white !important;
+    border: 1px solid #444 !important;
+}
+
+/* Buttons */
+.dark-mode .btn-primary {
+    background-color: #6f4f3c !important;
+    border: none;
+}
+
+.dark-mode .btn-warning {
+    background-color: #c28a00 !important;
+}
+
+/* Toggle Button */
+#themeToggle {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
 }

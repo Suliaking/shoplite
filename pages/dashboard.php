@@ -43,7 +43,6 @@ $name = $_SESSION['name'];
             <div class="collapse navbar-collapse" id="navMenu">
                 <ul class="navbar-nav ms-auto align-items-center">
                     <li class="nav-item"><a class="nav-link active" href="dashboard.php">Dashboard</a></li>
-                    <li class="nav-item"><a class="nav-link" href="../pages/profile.php">Profile</a></li>
                     <li class="nav-item"><a class="nav-link" href="../pages/products.php">Products</a></li>
                     <li class="nav-item"><a class="nav-link" href="orders.php">Orders</a></li>
                     <li class="nav-item">
@@ -56,7 +55,28 @@ $name = $_SESSION['name'];
                             </span>
                         </a>
                     </li>
-                    <li class="nav-item"><a class="nav-link text-danger" href="../process/logout.php">Logout</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userDropdown"
+                            role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-person-circle me-1"></i> <?= htmlspecialchars($_SESSION['name']); ?>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                            <li><a class="dropdown-item" href="../pages/dashboard.php"><i
+                                        class="bi bi-speedometer2 me-2"></i>
+                                    Dashboard</a></li>
+                            <li><a class="dropdown-item" href="../pages/profile.php"><i class="bi bi-person me-2"></i>
+                                    Profile</a>
+                            </li>
+                            <li><a class="dropdown-item" href="../pages/order.php"><i class="bi bi-bag-check me-2"></i>
+                                    Orders</a>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item text-danger" href="../process/logout.php"><i
+                                        class="bi bi-box-arrow-right me-2"></i> Logout</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </div>

@@ -50,8 +50,16 @@ $isLoggedIn = isset($_SESSION['name']);
 
           <li class="nav-item"><a class="nav-link" href="dashboard.php">Dashboard</a></li>
           <li class="nav-item"><a class="nav-link active" href="#">Products</a></li>
-          <li class="nav-item"><a class="nav-link" href="../pages/cart.php">Cart</a></li>
-
+          <li class="nav-item"><a class="nav-link" href="orders.php">Orders</a></li>
+          <li class="nav-item">
+            <a class="nav-link position-relative" href="cart.php">
+              🛒 Cart
+              <!-- Optional badge to show item count -->
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                <?php echo isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0; ?>
+              </span>
+            </a>
+          </li>
           <?php if ($isLoggedIn): ?>
             <!-- Dropdown menu for logged in user -->
             <li class="nav-item dropdown">

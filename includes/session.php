@@ -21,7 +21,7 @@ if (isset($_SESSION['name'])) {
 
 
     // Select only the needed details from the database
-    $sql_query = "SELECT email, name, password, created_at FROM users WHERE name = '$name'";
+    $sql_query = "SELECT email, name, password, created_at, phone, address, image, profile_pic  FROM users WHERE name = '$name'";
     $result = $conn->query($sql_query);
 
     if ($result && $result->num_rows === 1) {
@@ -30,7 +30,10 @@ if (isset($_SESSION['name'])) {
         $name = $userDetails["name"];
         $password = $userDetails["password"];
         $created_at = date("F j, Y, g:i a", strtotime($userDetails["created_at"]));
-
+        $phone = $userDetails["phone"];
+        $address = $userDetails["address"];
+        $image = $userDetails["image"];
+        $profile_pic = $userDetails["profile_pic"];
     } else {
         echo "User not found!";
     }
