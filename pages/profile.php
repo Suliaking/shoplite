@@ -228,12 +228,14 @@ $user = mysqli_fetch_assoc($result);
             </div>
         </div>
 
-        <!-- Security -->
+        <!-- Security Tab UI -->
         <div class="tab-pane fade" id="security">
-            <div class="form-card">
-                <h5 class="mb-3">Security Settings</h5>
+            <div class="card shadow-sm border-0 rounded-4 p-4 mb-4">
+                <h5 class="mb-3 fw-bold"><i class="bi bi-shield-lock-fill text-warning"></i> Security Settings</h5>
 
-                <p>You can change your password using the button below.</p>
+                <p class="text-muted">
+                    You can change your password using the button below.
+                </p>
 
                 <a href="change_password.php" class="btn btn-warning w-100">
                     <i class="bi bi-lock"></i> Change Password

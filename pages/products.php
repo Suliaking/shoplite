@@ -124,7 +124,7 @@ $isLoggedIn = isset($_SESSION['name']);
                     </a>
                     <?php if ($isLoggedIn): ?>
                       <!-- Add to Cart form -->
-                      <form method="POST" action="../pages/cart.php">
+                      <form method="POST" action="../process/add_to_cart.php">
                         <input type="hidden" name="product_id" value="<?= $row['id']; ?>">
                         <input type="hidden" name="product_name" value="<?= htmlspecialchars($row['name']); ?>">
                         <input type="hidden" name="product_price" value="<?= $row['price']; ?>">

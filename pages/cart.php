@@ -2,138 +2,248 @@
 session_start();
 include("../includes/db.php");
 
-// Initialize cart if not already set
-if (!isset($_SESSION['cart'])) {
-    $_SESSION['cart'] = [];
-}
-
-// Add to cart functionality
-if (isset($_POST['add_to_cart'])) {
-    
-    $product_id = $_POST['product_id'];
-    $product_name = $_POST['product_name'];
-    $product_price = $_POST['product_price'];
-    $product_image = $_POST['product_image'];
-
-    // If product already exists, increase quantity
-    if (isset($_SESSION['cart'][$product_id])) {
-        $_SESSION['cart'][$product_id]['quantity']++;
-    } else {
-        // Add new product to cart
-        $_SESSION['cart'][$product_id] = [
-            'name' => $product_name,
-            'price' => $product_price,
-            'image' => $product_image,
-            'quantity' => 1
-        ];
-    }
-
-    header("Location: cart.php");
+if (!isset($_SESSION['user_id'])) {
+    header("Location: ../pages/login.php");
     exit();
 }
 
-// Remove item from cart
+$user_id = $_SESSION['user_id'];
+
+// Load cart from DB into session
+$_SESSION['cart'] = [];
+
+$sql = "
+SELECT c.product_id, c.quantity, p.name, p.price, p.image
+FROM cart c
+JOIN products p ON c.product_id = p.id
+WHERE c.user_id = ?
+";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$result = $stmt->get_result();
+
+while ($row = $result->fetch_assoc()) {
+    $_SESSION['cart'][$row['product_id']] = [
+        'name' => $row['name'],
+        'price' => $row['price'],
+        'image' => $row['image'],
+        'quantity' => $row['quantity']
+    ];
+}
+
+// ======================
+// REMOVE ITEM FROM CART
+// ======================
 if (isset($_GET['remove'])) {
-    $remove_id = $_GET['remove'];
-    unset($_SESSION['cart'][$remove_id]);
-    header("Location: cart.php");
+    $product_id = intval($_GET['remove']);
+
+    // Remove from DB
+    $del = $conn->prepare("DELETE FROM cart WHERE user_id=? AND product_id=?");
+    $del->bind_param("ii", $user_id, $product_id);
+    $del->execute();
+
+    // Remove from session
+    unset($_SESSION['cart'][$product_id]);
+
+    header("Location: ../pages/cart.php");
     exit();
 }
 
-// Update quantities
+// ======================
+// UPDATE CART
+// ======================
 if (isset($_POST['update_cart'])) {
-    foreach ($_POST['quantities'] as $id => $qty) {
-        if ($qty > 0) {
-            $_SESSION['cart'][$id]['quantity'] = $qty;
+    foreach ($_POST['quantities'] as $product_id => $qty) {
+        $qty = intval($qty);
+
+        if ($qty <= 0) {
+            // Delete row from DB
+            $del = $conn->prepare("DELETE FROM cart WHERE user_id=? AND product_id=?");
+            $del->bind_param("ii", $user_id, $product_id);
+            $del->execute();
+
+            unset($_SESSION['cart'][$product_id]);
         } else {
-            unset($_SESSION['cart'][$id]);
+            // Update DB quantity
+            $upd = $conn->prepare("UPDATE cart SET quantity=? WHERE user_id=? AND product_id=?");
+            $upd->bind_param("iii", $qty, $user_id, $product_id);
+            $upd->execute();
+
+            $_SESSION['cart'][$product_id]['quantity'] = $qty;
         }
     }
-    header("Location: cart.php");
+
+    header("Location: ../pages/cart.php");
     exit();
 }
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <title>Your Cart - ShopLite</title>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+    <style>
+        body {
+            background: #f7f9fc;
+        }
+
+        .cart-wrapper {
+            background: #fff;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+        }
+
+        .product-img {
+            width: 65px;
+            height: 65px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .table thead th {
+            background: #212529;
+            color: #fff;
+        }
+
+        .checkout-bar {
+            background: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 18px rgba(0,0,0,0.1);
+            position: sticky;
+            bottom: 0;
+            z-index: 10;
+        }
+
+        .update-btn, .remove-btn {
+            border-radius: 8px;
+        }
+    </style>
 </head>
 
-<body class="bg-light">
+<body>
 
     <div class="container py-5">
+
+        <!-- CART HEADER -->
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2><i class="bi bi-cart-check"></i> Your Shopping Cart</h2>
-            <a href="../pages/products.php" class="btn btn-outline-secondary"><i class="bi bi-arrow-left"></i> Back to
-                Products</a>
+            <h2 class="fw-bold text-dark">
+                <i class="bi bi-cart-check"></i> Shopping Cart
+            </h2>
+
+            <a href="../pages/products.php" class="btn btn-outline-secondary btn-sm">
+                <i class="bi bi-arrow-left"></i> Continue Shopping
+            </a>
         </div>
 
+        <!-- EMPTY CART MESSAGE -->
         <?php if (empty($_SESSION['cart'])): ?>
-            <div class="alert alert-info text-center">Your cart is empty. <a href="../pages/products.php">Continue
-                    shopping</a>.</div>
+            <div class="alert alert-info text-center p-4">
+                <h5>Your cart is currently empty</h5>
+                <p class="mb-0">Go back and add some products to your cart.</p>
+                <br>
+                <a href="../pages/products.php" class="btn btn-primary">
+                    <i class="bi bi-shop"></i> Browse Products
+                </a>
+            </div>
+
         <?php else: ?>
+
+            <!-- CART TABLE WRAPPER -->
             <form method="POST">
-                <div class="table-responsive">
-                    <table class="table table-bordered align-middle text-center">
-                        <thead class="table-dark">
-                            <tr>
-                                <th>Product</th>
-                                <th>Price</th>
-                                <th>Quantity</th>
-                                <th>Total</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            $grandTotal = 0;
-                            foreach ($_SESSION['cart'] as $id => $item):
-                                $total = (float) $_SESSION['cart'][$id]['price'] * (int) $_SESSION['cart'][$id]['quantity'];
-                                $grandTotal += $total;
-                                ?>
+                <div class="cart-wrapper">
+
+                    <div class="table-responsive">
+                        <table class="table align-middle text-center">
+                            <thead>
                                 <tr>
-                                    <td>
-                                        <img src="../uploads/<?= htmlspecialchars($item['image']); ?>" width="60" height="60"
-                                            class="rounded me-2">
-                                        <?= htmlspecialchars($item['name']); ?>
-                                    </td>
-                                    <td>₦<?= number_format($item['price'], 2); ?></td>
-                                    <td style="width: 120px;">
-                                        <input type="number" name="quantities[<?= $id; ?>]" value="<?= $item['quantity']; ?>"
-                                            min="1" class="form-control text-center">
-                                    </td>
-                                    <td>₦<?= number_format($total, 2); ?></td>
-                                    <td>
-                                        <a href="cart.php?remove=<?= $id; ?>" class="btn btn-sm btn-danger">
-                                            <i class="bi bi-trash"></i> Remove
-                                        </a>
-                                    </td>
+                                    <th class="text-start">Product</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                    <th>Total</th>
+                                    <th></th>
                                 </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
+                            </thead>
+
+                            <tbody>
+
+                                <?php
+                                $grandTotal = 0;
+                                foreach ($_SESSION['cart'] as $id => $item):
+                                    $total = $item['price'] * $item['quantity'];
+                                    $grandTotal += $total;
+                                ?>
+
+                                    <tr>
+                                        <td class="text-start">
+                                            <div class="d-flex align-items-center">
+                                                <img src="../uploads/<?= $item['image']; ?>" class="product-img me-3">
+                                                <div>
+                                                    <strong><?= htmlspecialchars($item['name']); ?></strong>
+                                                </div>
+                                            </div>
+                                        </td>
+
+                                        <td><span class="fw-bold text-success">₦<?= number_format($item['price'], 2); ?></span></td>
+
+                                        <td style="width: 120px;">
+                                            <input
+                                                type="number"
+                                                name="quantities[<?= $id; ?>]"
+                                                value="<?= $item['quantity']; ?>"
+                                                min="1"
+                                                class="form-control text-center"
+                                            >
+                                        </td>
+
+                                        <td class="fw-bold">₦<?= number_format($total, 2); ?></td>
+
+                                        <td>
+                                            <a href="cart.php?remove=<?= $id; ?>" 
+                                               class="btn btn-sm btn-danger remove-btn">
+                                                <i class="bi bi-trash"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+
+                                <?php endforeach; ?>
+
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
 
-                <div class="d-flex justify-content-between align-items-center mt-3">
-                    <button type="submit" name="update_cart" class="btn btn-warning">
+                <!-- CHECKOUT BAR -->
+                <div class="checkout-bar mt-4 d-flex justify-content-between align-items-center">
+
+                    <button type="submit" name="update_cart" class="btn btn-warning update-btn">
                         <i class="bi bi-arrow-repeat"></i> Update Cart
                     </button>
 
-                    <h4>Total: <span class="text-success">₦<?= number_format($grandTotal, 2); ?></span></h4>
+                    <h4 class="mb-0 fw-bold">
+                        Total:
+                        <span class="text-success">₦<?= number_format($grandTotal, 2); ?></span>
+                    </h4>
+
+                    <a href="#" class="btn btn-success btn-lg">
+                        <i class="bi bi-bag-check"></i> Checkout
+                    </a>
                 </div>
 
-                <div class="text-end mt-4">
-                    <a href="#" class="btn btn-success btn-lg"><i class="bi bi-bag-check"></i> Proceed to Checkout</a>
-                </div>
             </form>
+
         <?php endif; ?>
+
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>
