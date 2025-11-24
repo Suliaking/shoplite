@@ -86,7 +86,7 @@ if (isset($_POST['update_cart'])) {
 <head>
     <meta charset="UTF-8">
     <title>Your Cart - ShopLite</title>
-
+    <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/Logo.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 
@@ -234,7 +234,7 @@ if (isset($_POST['update_cart'])) {
                         <span class="text-success">₦<?= number_format($grandTotal, 2); ?></span>
                     </h4>
 
-                    <a href="#" class="btn btn-success btn-lg">
+                    <a href="checkout.php" class="btn btn-success btn-lg">
                         <i class="bi bi-bag-check"></i> Checkout
                     </a>
                 </div>

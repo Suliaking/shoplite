@@ -20,6 +20,7 @@ $user = mysqli_fetch_assoc($result);
 <head>
     <meta charset="UTF-8">
     <title>My Profile - ShopLite</title>
+    <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/Logo.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 </head>
