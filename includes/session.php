@@ -19,7 +19,6 @@ if (isset($_SESSION['name'])) {
         }
     }
 
-
     // Select only the needed details from the database
     $sql_query = "SELECT email, name, password, created_at, phone, address, image, profile_pic  FROM users WHERE name = '$name'";
     $result = $conn->query($sql_query);

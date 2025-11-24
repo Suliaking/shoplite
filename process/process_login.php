@@ -1,32 +1,34 @@
 <?php
 session_start();
-include("../includes/db.php"); // adjust the path if needed
+include("../includes/db.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Collect and clean user input
+
     $email = trim($_POST['email']);
     $password = trim($_POST['password']);
 
-    // Validate required fields
     if (empty($email) || empty($password)) {
         die("Both email and password are required!");
     }
 
-    // Use prepared statement to prevent SQL injection
-    $stmt = $conn->prepare("SELECT name, password FROM users WHERE email = ?");
+    // FIXED: id is now included
+    $stmt = $conn->prepare("SELECT id, name, password FROM users WHERE email = ?");
     $stmt->bind_param("s", $email);
     $stmt->execute();
     $result = $stmt->get_result();
 
-    // Check if user exists
     if ($result->num_rows === 1) {
         $user = $result->fetch_assoc();
 
         if ($password === $user['password']) {
-            // Store session data
+
+            // FIX: user_id will now exist
+            $_SESSION['user_id'] = $user['id'];
             $_SESSION['name'] = $user['name'];
-            header("Location: ../pages/dashboard.php"); // redirect after successful login
+
+            header("Location: ../pages/dashboard.php");
             exit();
+
         } else {
             echo "Invalid password!";
         }

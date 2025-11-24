@@ -68,11 +68,7 @@ $isLoggedIn = isset($_SESSION['name']);
                 <i class="bi bi-person-circle me-1"></i> <?= htmlspecialchars($_SESSION['name']); ?>
               </a>
               <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                <li><a class="dropdown-item" href="../pages/dashboard.php"><i class="bi bi-speedometer2 me-2"></i>
-                    Dashboard</a></li>
                 <li><a class="dropdown-item" href="../pages/profile.php"><i class="bi bi-person me-2"></i> Profile</a>
-                </li>
-                <li><a class="dropdown-item" href="../pages/order.php"><i class="bi bi-bag-check me-2"></i> Orders</a>
                 </li>
                 <li>
                   <hr class="dropdown-divider">
@@ -88,8 +84,6 @@ $isLoggedIn = isset($_SESSION['name']);
       </div>
     </div>
   </nav>
-
-
 
   <!-- Header -->
   <header class="py-5 text-center bg-light">
