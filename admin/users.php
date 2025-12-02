@@ -44,6 +44,9 @@ include("../includes/db.php");
                                         onclick="return confirm('Delete this user?');">
                                         <i class="bi bi-trash"></i> Delete
                                     </a>
+                                    <a href="send_email.php?id=<?= $user['id'] ?>" class="btn btn-sm btn-info">
+                                        <i class="bi bi-envelope"></i> Email
+                                    </a>
                                 </td>
                             </tr>
                         <?php endwhile; endif; ?>
