@@ -20,13 +20,15 @@ if (isset($_SESSION['name'])) {
     }
 
     // Select only the needed details from the database
-    $sql_query = "SELECT email, name, password, created_at, phone, address, image, profile_pic  FROM users WHERE name = '$name'";
+    $sql_query = "SELECT email, name, password, created_at, phone, address, image, profile_pic, account_number, wallet_balance  FROM users WHERE name = '$name'";
     $result = $conn->query($sql_query);
 
     if ($result && $result->num_rows === 1) {
         $userDetails = $result->fetch_assoc();
         $email = $userDetails["email"];
         $name = $userDetails["name"];
+        $account_number = $userDetails["account_number"];
+        $wallet_balance = $userDetails["wallet_balance"];
         $password = $userDetails["password"];
         $created_at = date("F j, Y, g:i a", strtotime($userDetails["created_at"]));
         $phone = $userDetails["phone"];

@@ -26,12 +26,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // 🔹 Set default profile picture
     $default_pic = 'default.png';
 
+    // Generate 10-digit unique account number
+    $account_number = "20" . rand(10000000, 99999999);
+
+    // Make sure it doesn't exist
+    $check = $conn->query("SELECT id FROM users WHERE account_number = '$account_number'");
+
+    while ($check->num_rows > 0) {
+        $account_number = "20" . rand(10000000, 99999999);
+        $check = $conn->query("SELECT id FROM users WHERE account_number = '$account_number'");
+    }
+
     // Insert user details into the database, including the default picture
     $insertQuery = $conn->prepare("
-        INSERT INTO users (name, email, password, profile_pic, created_at)
-        VALUES (?, ?, ?, ?, NOW())
+    INSERT INTO users (name, email, password, profile_pic, created_at, account_number, wallet_balance)
+    VALUES (?, ?, ?, ?, NOW(), ?, 0)
     ");
-    $insertQuery->bind_param("ssss", $name, $email, $password, $default_pic);
+
+    $insertQuery->bind_param("sssss", $name, $email, $password, $default_pic, $account_number);
+
 
     if ($insertQuery->execute()) {
         // Set session and redirect to dashboard
